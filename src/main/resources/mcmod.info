@@ -1,0 +1,16 @@
+[
+{
+  "modid": "NecromancyPlus",
+  "name": "NecromancyPlus",
+  "description": "A simple mod that helps you with necromancy in Skyblock.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["GockelJunior"],
+  "credits": "Thanks to justice1444444#7463 for testing!",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

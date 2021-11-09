@@ -7,8 +7,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ManaCostViewer {
 
-    public static final String MENU_NAME = "Soul Menu";
-
     @SubscribeEvent
     public void itemTooltipEvent(ItemTooltipEvent event) {
 

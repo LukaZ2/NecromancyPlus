@@ -3,6 +3,7 @@ package de.lukaz.necromancyplus;
 import de.lukaz.necromancyplus.commands.*;
 import de.lukaz.necromancyplus.features.ManaCostViewer;
 import de.lukaz.necromancyplus.features.DroppedSoulInfo;
+import de.lukaz.necromancyplus.features.RemoveConfirm;
 import de.lukaz.necromancyplus.handlers.SettingsHandler;
 import de.lukaz.necromancyplus.handlers.ChatHandler;
 import de.lukaz.necromancyplus.utils.MessageType;
@@ -39,6 +40,7 @@ public class NecromancyPlus
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new ManaCostViewer());
         MinecraftForge.EVENT_BUS.register(new DroppedSoulInfo());
+        MinecraftForge.EVENT_BUS.register(new RemoveConfirm());
 
     }
 

@@ -45,12 +45,7 @@ public class NecromancyPlus
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
 
-        ClientCommandHandler.instance.registerCommand(new GetNBTCommand());
-        ClientCommandHandler.instance.registerCommand(new GetEntityNBTCommand());
         ClientCommandHandler.instance.registerCommand(new MenuCommand());
-        ClientCommandHandler.instance.registerCommand(new GetTalismanJsonCommand());
-        ClientCommandHandler.instance.registerCommand(new GetArmorCommand());
-        ClientCommandHandler.instance.registerCommand(new GetPetsCommand());
 
     }
 

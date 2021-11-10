@@ -15,6 +15,11 @@ import java.util.List;
 public class ManaOptimizerGui extends GuiScreen {
 
     public boolean scanning = false;
+    public boolean inSkyblock;
+
+    public ManaOptimizerGui(boolean inSkyblock) {
+        this.inSkyblock = inSkyblock;
+    }
 
     @Override
     public void initGui() {
@@ -28,10 +33,15 @@ public class ManaOptimizerGui extends GuiScreen {
 
         fontRendererObj.drawString("[Necromancy+] Mana optimizer",(width/2)-70, (int)(height*0.1D), 0xffffff);
         fontRendererObj.drawString("This module helps you to optimize your intelligence.", (width/2)-130, (int)(height*0.15), 0xffffff);
-        fontRendererObj.drawString("[WARNING] If you find any optimization option that is not covered in the mod, feel free to contact Lukaz#1741 on Discord", (width/2)-200, (int)(height*0.2), 0xfcf003);
-        CustomButton optimizeButton = new CustomButton(0, (width / 2) - 70, (int) (height * 0.3), "Start optimization");
+        fontRendererObj.drawString("[WARNING] If you find any optimization option that is not covered in the mod,", (width/2)-200, (int)(height*0.2), 0xfcf003);
+        fontRendererObj.drawString("feel free to contact Lukaz#1741 on discord.", (width/2)-130, (int)(height*0.25), 0xfcf003);
+        CustomButton optimizeButton = new CustomButton(0, (width / 2) - 100, (int) (height * 0.35), "Start optimization");
         if(scanning) {
             optimizeButton.displayString = "Optimizing...";
+            optimizeButton.enabled = false;
+        }
+        if(!inSkyblock) {
+            optimizeButton.displayString = "Please join Skyblock";
             optimizeButton.enabled = false;
         }
         buttonList.add(optimizeButton);

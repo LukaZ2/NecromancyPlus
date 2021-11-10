@@ -5,6 +5,7 @@ import de.lukaz.necromancyplus.handlers.ChatHandler;
 import de.lukaz.necromancyplus.utils.MessageType;
 import de.lukaz.necromancyplus.utils.Module;
 import de.lukaz.necromancyplus.utils.gui.CustomButton;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 
@@ -46,7 +47,7 @@ public class SettingsGui extends GuiScreen {
                 }
             }
             if(p_actionPerformed_1_.displayString.equals("Mana optimizer")) {
-                NecromancyPlus.guiScreenToOpen = new ManaOptimizerGui();
+                NecromancyPlus.guiScreenToOpen = new ManaOptimizerGui(Minecraft.getMinecraft().thePlayer.inventory.mainInventory[8].getDisplayName().contains("SkyBlock Menu"));
                 return;
             }
         }

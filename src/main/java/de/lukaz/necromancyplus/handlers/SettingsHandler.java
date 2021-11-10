@@ -81,12 +81,15 @@ public class SettingsHandler {
         Configuration config = new Configuration(new File(fileName));
         try {
             config.load();
-            if(!config.hasCategory(category)) {
-                setIntValue(category, key, defaultValue);
-                return defaultValue;
+            if(config.hasCategory(category)) {
+                if(!hasValue(category, key)) {
+                    config.get(category, key, defaultValue);
+                    return defaultValue;
+                }
+                return config.get(category, key, 0).getInt();
             }
-            config.save();
-            return getIntValue(category, key);
+            config.get(category, key, defaultValue);
+            return defaultValue;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -98,5 +101,6 @@ public class SettingsHandler {
     public static void init() {
         Module.DISPLAY_DROPPED_SOULS.setState(initValue("modules", "souldropdisplay", 0));
         Module.VIEW_MANA_COST_IN_MENU.setState(initValue("modules", "displaymanacost", 1));
+        Module.CONFIRM_REMOVE.setState(initValue("modules", "confirmremove", 1));
     }
 }

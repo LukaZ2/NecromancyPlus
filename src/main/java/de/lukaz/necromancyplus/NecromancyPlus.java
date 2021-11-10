@@ -32,6 +32,7 @@ public class NecromancyPlus
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+        SettingsHandler.init();
     }
     
     @EventHandler

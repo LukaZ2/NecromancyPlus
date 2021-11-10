@@ -2,8 +2,8 @@ package de.lukaz.necromancyplus.features;
 
 import de.lukaz.necromancyplus.handlers.ChatHandler;
 import de.lukaz.necromancyplus.utils.MessageType;
+import de.lukaz.necromancyplus.utils.Module;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerChest;
@@ -31,12 +31,18 @@ public class RemoveConfirm {
         if(!Mouse.getEventButtonState()) {
             return;
         }
-        Container containerChest = ((GuiChest)event.gui).inventorySlots;
-        if(!(containerChest instanceof ContainerChest)) {
+        if(Module.CONFIRM_REMOVE.getState() == 0) {
+            return;
+        }
+        if(!(event.gui instanceof GuiChest)) {
+            return;
+        }
+        Container container = ((GuiChest)event.gui).inventorySlots;
+        if(!(container instanceof ContainerChest)) {
             return;
         }
         GuiChest guiChest = (GuiChest) event.gui;
-        if(!Minecraft.getMinecraft().thePlayer.inventory.getDisplayName().equals("Soul Menu")) {
+        if(!((ContainerChest)container).getLowerChestInventory().getDisplayName().getUnformattedText().equals("Soul Menu")) {
             return;
         }
         Slot slot = guiChest.getSlotUnderMouse();
@@ -61,6 +67,9 @@ public class RemoveConfirm {
         if(confirmedSlot == null) {
             confirmedSlot = slot;
             expirationTime = System.currentTimeMillis()+EXPIRATION_DELAY;
+            sendConfirmMessage();
+            event.setCanceled(true);
+            return;
         }
         if (confirmedSlot == slot) {
             if (expirationTime <= System.currentTimeMillis()) {
@@ -81,6 +90,7 @@ public class RemoveConfirm {
 
     public void sendConfirmMessage() {
         ChatHandler.sendMessage("Please click again within 2 seconds to remove this soul!", MessageType.WARNING);
+        Minecraft.getMinecraft().thePlayer.playSound("note.bass", 1, 1.5f);
     }
 
 }

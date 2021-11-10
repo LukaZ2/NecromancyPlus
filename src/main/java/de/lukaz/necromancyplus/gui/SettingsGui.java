@@ -16,7 +16,8 @@ public class SettingsGui extends GuiScreen {
 
         buttonList.add(new SettingsButton(0, (width/2)-100, (int) (height * 0.2), "Dropped Soul Info", "modules", "souldropdisplay", Module.DISPLAY_DROPPED_SOULS));
         buttonList.add(new SettingsButton(0, (width/2)-100, (int) (height * 0.3), "Display Mana cost in Menu", "modules", "displaymanacost", Module.VIEW_MANA_COST_IN_MENU));
-        buttonList.add(new CustomButton(0, (width/2)-100, (int)(height*0.4), "Mana optimizer"));
+        buttonList.add(new SettingsButton(0, (width/2)-100, (int)(height*0.4), "Doubleclick to remove soul", "modules", "confirmremove", Module.CONFIRM_REMOVE));
+        buttonList.add(new CustomButton(0, (width/2)-100, (int)(height*0.5), "Mana optimizer"));
     }
 
     @Override
@@ -40,7 +41,7 @@ public class SettingsGui extends GuiScreen {
                     if (((SettingsButton) p_actionPerformed_1_).value != 1) {
                         return;
                     }
-                    ChatHandler.sendMessage("WARNING: This module is still in development and bugs may occur.", MessageType.WARNING);
+                    ChatHandler.sendMessage("WARNING: Please note that this module does not work in dungeons (CURRENTLY). Why? See https://github.com/LukaZ2/NecromancyPlus", MessageType.WARNING);
                     return;
                 }
             }

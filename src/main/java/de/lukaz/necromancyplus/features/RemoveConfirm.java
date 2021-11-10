@@ -46,6 +46,8 @@ public class RemoveConfirm {
             return;
         }
         Slot slot = guiChest.getSlotUnderMouse();
+        if(slot == null)
+            return;
         if(!slot.getHasStack()) {
             return;
         }

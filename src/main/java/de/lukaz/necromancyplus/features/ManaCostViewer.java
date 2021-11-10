@@ -20,6 +20,9 @@ public class ManaCostViewer {
         if(event.entityPlayer.inventory.getDisplayName() == null || event.entityPlayer.inventory.getDisplayName().toString().isEmpty()) {
             return;
         }
+        if(event.toolTip.size() < 4) {
+            return;
+        }
         if(!event.toolTip.get(event.toolTip.size()-3).contains("Click to remove!")) {
             return;
         }

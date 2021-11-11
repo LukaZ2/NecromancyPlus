@@ -14,6 +14,7 @@ public class SettingsHandler {
         Configuration config = new Configuration(new File(fileName));
         try {
             config.load();
+            int init = config.get(category, key, value).getInt();
             config.getCategory(category).get(key).set(value);
             config.save();
         } catch (Exception e) {
@@ -26,6 +27,7 @@ public class SettingsHandler {
         Configuration config = new Configuration(new File(fileName));
         try {
             config.load();
+            String init = config.get(category, key, value).getString();
             config.getCategory(category).get(key).set(value);
             config.save();
         } catch (Exception e) {
@@ -39,7 +41,7 @@ public class SettingsHandler {
         Configuration config = new Configuration(new File(fileName));
         try {
             config.load();
-            return config.get(category, key, 0).getInt();
+            return config.getCategory(category).get(key).getInt();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -51,7 +53,7 @@ public class SettingsHandler {
         Configuration config = new Configuration(new File(fileName));
         try {
             config.load();
-            return config.get(category, key, 0).getString();
+            return config.getCategory(category).get(key).getString();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

@@ -69,7 +69,7 @@ public class APIHandler {
         String uuid = getUUID(playerName);
         String currentProfile = "";
         long latestSave = 0;
-        JsonArray profiles = get(new URL(HYPIXEL_API_URL + "skyblock/profiles?uuid=" + uuid + "&key=3cb51ff3-01f1-4805-9075-e4ac255af098")).get("profiles").getAsJsonArray();
+        JsonArray profiles = get(new URL(HYPIXEL_API_URL + "skyblock/profiles?uuid=" + uuid + "&key=" + SettingsHandler.getStringValue("strings", "api"))).get("profiles").getAsJsonArray();
         for (int i = 0; i < profiles.size(); i++) {
             JsonObject profile = profiles.get(i).getAsJsonObject();
             long lastSave = 1;

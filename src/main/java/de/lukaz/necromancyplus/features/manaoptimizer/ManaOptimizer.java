@@ -136,7 +136,7 @@ public class ManaOptimizer {
         if(currentPet.isEmpty()) {
             return new OptimizerResultText("You dont have any pet active!", false, "up to 300");
         }
-        if(currentPet == "SHEEP") {
+        if(currentPet.equals("SHEEP")) {
             if(currentPetLevel == 100) {
                 return new OptimizerResultTextSuccess();
             }

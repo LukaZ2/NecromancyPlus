@@ -25,6 +25,8 @@ public class ManaOptimizer {
         result.add(checkArmor());
         result.add(checkLevels());
         result.add(checkPet());
+        result.add(checkWisdom());
+        result.add(checkBigBrain());
 
         return result;
     }
@@ -70,7 +72,7 @@ public class ManaOptimizer {
                     }
                 }
             }
-            return new OptimizerResultText("You have " + (talismanCount - talismansReforged) + " unreforged talismans!", false, String.valueOf(optimizedMana));
+            return new OptimizerResultText("You have " + (talismanCount - talismansReforged) + " talismans not reforged to bizarre!", false, String.valueOf(optimizedMana));
         }
         return new OptimizerResultTextSuccess();
     }
@@ -88,10 +90,18 @@ public class ManaOptimizer {
         if (armor_length != 4) {
             return new OptimizerResultText("You are not wearing a full armor set!", false, "up to approx. 3500");
         }
+        return new OptimizerResultTextSuccess();
+    }
+
+    public static OptimizerResultText checkWisdom() {
+        ItemStack[] armor = Minecraft.getMinecraft().thePlayer.inventory.armorInventory;
+
         List<ItemStack> noWisdom = new ArrayList();
         for (int i = 0; i < armor.length; i++) {
-            if(!armor[i].getTagCompound().toString().contains("Wisdom V")) {
-                noWisdom.add(armor[i]);
+            if(armor[i] != null) {
+                if (!armor[i].getTagCompound().toString().contains("Wisdom V")) {
+                    noWisdom.add(armor[i]);
+                }
             }
         }
         if(noWisdom.size() == 0) {
@@ -104,6 +114,23 @@ public class ManaOptimizer {
         result.substring(0, result.length()-2);
         result.append(" don't have Wisdom V!");
         return new OptimizerResultText(Utils.clearColour(result.toString()), false, String.valueOf(noWisdom.size()*100));
+    }
+
+    public static OptimizerResultText checkBigBrain() {
+        ItemStack helmet = Minecraft.getMinecraft().thePlayer.inventory.armorInventory[3];
+
+        int optimizedMana = 0;
+        if(helmet != null) {
+            int level = getEnchantLevel(helmet, "big brain");
+
+            if(level == 5) {
+                return new OptimizerResultTextSuccess();
+            }
+
+            optimizedMana = optimizedMana+((5-level)*5);
+            return new OptimizerResultText("You dont have Big brain 5 on you helmet!", false, String.valueOf(optimizedMana));
+        }
+        return null;
     }
 
     public static OptimizerResultText checkLevels() {
@@ -143,5 +170,22 @@ public class ManaOptimizer {
             return new OptimizerResultText("Your sheep pet is not level 100!", false, String.valueOf((100-currentPetLevel)*2));
         }
         return new OptimizerResultText("You don't have a sheep active!", false, "Up to 200 Mana and 20% less cost");
+    }
+
+    public static int getEnchantLevel(ItemStack item, String enchant) {
+        int result = 0;
+        List<String> tooltip = item.getTooltip(Minecraft.getMinecraft().thePlayer, false);
+        for (int i = 0; i < tooltip.size(); i++) {
+            if(Utils.clearColour(tooltip.get(i)).toLowerCase().contains(enchant)) {
+                String[] enchants = tooltip.get(i).split(",");
+                for (int j = 0; j < enchants.length; j++) {
+                    if(Utils.clearColour(enchants[j]).toLowerCase().startsWith(enchant)) {
+                        String enchantNameCleared = Utils.clearColour(enchants[j]).toLowerCase();
+                        result = Utils.romanNumberToInt(enchantNameCleared.substring(enchant.length()).replaceAll(" ", ""));
+                    }
+                }
+            }
+        }
+        return result;
     }
 }

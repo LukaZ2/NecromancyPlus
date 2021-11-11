@@ -67,6 +67,9 @@ public class ManaOptimizerGui extends GuiScreen {
                     Minecraft.getMinecraft().thePlayer.closeScreen();
                     ChatHandler.sendMessage(" ", MessageType.INFO);
                     for (int i = 0; i < result.size(); i++) {
+                        if(result.get(i) == null) {
+                            continue;
+                        }
                         if (!result.get(i).success) {
                             ChatHandler.sendMessage(result.get(i).text + EnumChatFormatting.YELLOW + " (Missing on " + result.get(i).optimizedMana + " mana)", MessageType.WARNING);
                         }

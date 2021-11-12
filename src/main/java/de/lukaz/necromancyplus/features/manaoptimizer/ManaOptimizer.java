@@ -97,9 +97,13 @@ public class ManaOptimizer {
         ItemStack[] armor = Minecraft.getMinecraft().thePlayer.inventory.armorInventory;
 
         List<ItemStack> noWisdom = new ArrayList();
+        int optimizedMana = 0;
         for (int i = 0; i < armor.length; i++) {
             if(armor[i] != null) {
-                if (!armor[i].getTagCompound().toString().contains("Wisdom V")) {
+                int level = getEnchantLevel(armor[i], "wisdom");
+
+                if(level != 0) {
+                    optimizedMana = optimizedMana + ((5 - level) * 20);
                     noWisdom.add(armor[i]);
                 }
             }
@@ -109,11 +113,11 @@ public class ManaOptimizer {
         }
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < noWisdom.size(); i++) {
-            result.append(noWisdom.get(i).getDisplayName()+", ");
+            result.append(noWisdom.get(i).getDisplayName()).append(", ");
         }
         result.substring(0, result.length()-2);
-        result.append(" don't have Wisdom V!");
-        return new OptimizerResultText(Utils.clearColour(result.toString()), false, String.valueOf(noWisdom.size()*100));
+        result.append(" don't have Wisdom 5!");
+        return new OptimizerResultText(Utils.clearColour(result.toString()), false, String.valueOf(optimizedMana));
     }
 
     public static OptimizerResultText checkBigBrain() {

@@ -3,6 +3,7 @@ package de.lukaz.necromancyplus.gui;
 import de.lukaz.necromancyplus.features.manaoptimizer.ManaOptimizer;
 import de.lukaz.necromancyplus.features.manaoptimizer.OptimizerResultText;
 import de.lukaz.necromancyplus.handlers.ChatHandler;
+import de.lukaz.necromancyplus.handlers.SettingsHandler;
 import de.lukaz.necromancyplus.utils.MessageType;
 import de.lukaz.necromancyplus.utils.gui.CustomButton;
 import net.minecraft.client.Minecraft;
@@ -15,10 +16,12 @@ import java.util.List;
 public class ManaOptimizerGui extends GuiScreen {
 
     public boolean scanning = false;
-    public boolean inSkyblock;
+    public boolean inSkyBlock;
+    public boolean hasApi;
 
-    public ManaOptimizerGui(boolean inSkyblock) {
-        this.inSkyblock = inSkyblock;
+    public ManaOptimizerGui(boolean inSkyBlock, boolean hasApi) {
+        this.inSkyBlock = inSkyBlock;
+        this.hasApi = hasApi;
     }
 
     @Override
@@ -40,9 +43,17 @@ public class ManaOptimizerGui extends GuiScreen {
             optimizeButton.displayString = "Optimizing...";
             optimizeButton.enabled = false;
         }
-        if(!inSkyblock) {
-            optimizeButton.displayString = "Please join Skyblock";
-            optimizeButton.enabled = false;
+        if(!optimizeButton.displayString.equals("Start optimization")) {
+            if (!hasApi) {
+                optimizeButton.displayString = "Please type /api new";
+                optimizeButton.enabled = false;
+            }
+        }
+        if(!optimizeButton.displayString.equals("Start optimization")) {
+            if (!inSkyBlock) {
+                optimizeButton.displayString = "Please join Skyblock";
+                optimizeButton.enabled = false;
+            }
         }
         buttonList.add(optimizeButton);
     }

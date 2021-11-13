@@ -102,7 +102,7 @@ public class ManaOptimizer {
             if(armor[i] != null) {
                 int level = getEnchantLevel(armor[i], "wisdom");
 
-                if(level != 0) {
+                if(level != 5) {
                     optimizedMana = optimizedMana + ((5 - level) * 20);
                     noWisdom.add(armor[i]);
                 }

@@ -33,6 +33,7 @@ public class NecromancyPlus
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         SettingsHandler.init();
+        Utils.refreshApi();
     }
     
     @EventHandler
@@ -61,12 +62,13 @@ public class NecromancyPlus
     }
 
     @SubscribeEvent
-    public void apiKeyChecker(ClientChatReceivedEvent event) {
+    public void apiKeyEvent(ClientChatReceivedEvent event) {
         String message = Utils.clearColour(event.message.toString());
 
         if(message.contains("Your new API key is")) {
             String apiKey = event.message.getSiblings().get(0).getChatStyle().getChatClickEvent().getValue();
             SettingsHandler.setStringValue("strings", "api", apiKey);
+            Utils.refreshApi();
             ChatHandler.sendMessage("API key has been set.", MessageType.INFO);
         }
     }

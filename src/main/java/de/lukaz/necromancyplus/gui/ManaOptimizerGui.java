@@ -43,13 +43,13 @@ public class ManaOptimizerGui extends GuiScreen {
             optimizeButton.displayString = "Optimizing...";
             optimizeButton.enabled = false;
         }
-        if(!optimizeButton.displayString.equals("Start optimization")) {
+        if(optimizeButton.displayString.equals("Start optimization")) {
             if (!hasApi) {
                 optimizeButton.displayString = "Please type /api new";
                 optimizeButton.enabled = false;
             }
         }
-        if(!optimizeButton.displayString.equals("Start optimization")) {
+        if(optimizeButton.displayString.equals("Start optimization")) {
             if (!inSkyBlock) {
                 optimizeButton.displayString = "Please join Skyblock";
                 optimizeButton.enabled = false;
@@ -77,6 +77,7 @@ public class ManaOptimizerGui extends GuiScreen {
                     ChatHandler.sendMessage("Result for your mana optimization:", MessageType.INFO);
                     Minecraft.getMinecraft().thePlayer.closeScreen();
                     ChatHandler.sendMessage(" ", MessageType.INFO);
+                    int totalManaOptimized = 0;
                     for (int i = 0; i < result.size(); i++) {
                         if(result.get(i) == null) {
                             continue;
@@ -84,6 +85,9 @@ public class ManaOptimizerGui extends GuiScreen {
                         if (!result.get(i).success) {
                             ChatHandler.sendMessage(result.get(i).text + EnumChatFormatting.YELLOW + " (Missing on " + result.get(i).optimizedMana + " mana)", MessageType.WARNING);
                         }
+                    }
+                    if(result.size() == 0) {
+                        ChatHandler.sendMessage("Well, nothing found to be optimized :c", MessageType.INFO);
                     }
                     Minecraft.getMinecraft().thePlayer.closeScreen();
                     ChatHandler.sendMessage(" ", MessageType.INFO);

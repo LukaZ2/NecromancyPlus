@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import de.lukaz.necromancyplus.utils.MessageType;
+import net.minecraft.client.Minecraft;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -34,7 +35,9 @@ public class APIHandler {
             Gson gson = new Gson();
             return gson.fromJson(response.toString(), JsonObject.class);
         }
-        ChatHandler.sendMessage("An error occoured! Response code " + httpURLConnection.getResponseCode(), MessageType.ERROR);
+        if(Minecraft.getMinecraft().getCurrentServerData().serverIP.contains("hypixel")) {
+            ChatHandler.sendMessage("An error occoured! Response code " + httpURLConnection.getResponseCode(), MessageType.ERROR);
+        }
         return null;
     }
 
@@ -83,5 +86,12 @@ public class APIHandler {
         }
         return currentProfile;
         }
-
+    public static JsonObject getApiKey(String apiKey) {
+        try {
+            return get(new URL(HYPIXEL_API_URL + "key?key=" + apiKey));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
+}

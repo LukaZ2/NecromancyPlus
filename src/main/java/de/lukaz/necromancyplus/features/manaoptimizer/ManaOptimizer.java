@@ -7,15 +7,15 @@ import de.lukaz.necromancyplus.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.Util;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ManaOptimizer {
-
-    public static final List<String> talismanIdentifiers = new ArrayList();
 
     public static List<OptimizerResultText> optimize() {
 
@@ -27,6 +27,8 @@ public class ManaOptimizer {
         result.add(checkPet());
         result.add(checkWisdom());
         result.add(checkBigBrain());
+        result.add(checkHeroic());
+        result.add(checkNecrotic());
 
         return result;
     }
@@ -176,6 +178,87 @@ public class ManaOptimizer {
         return new OptimizerResultText("You don't have a sheep active!", false, "Up to 200 Mana and 20% less cost");
     }
 
+    public static OptimizerResultText checkHeroic() {
+        ItemStack weapon = Minecraft.getMinecraft().thePlayer.getHeldItem();
+        if(weapon == null) {
+            return new OptimizerResultText("You don't have a weapon in your hand!", false, "Up to around 600");
+        }
+        if(!weapon.hasTagCompound()) {
+            return new OptimizerResultText("Wierd... Your held item does not have a NBT tag.", false, "0");
+        }
+        List<String> tooltip = weapon.getTooltip(Minecraft.getMinecraft().thePlayer, false);
+        if(tooltip.size() == 0) {
+            return new OptimizerResultText("Wierd... Your held item does not have a tooltip.", false, "0");
+        }
+        if(!Utils.clearColour(weapon.getDisplayName()).startsWith("Heroic")) {
+            int optimizedMana = 0;
+            String rarity = getRarity(weapon);
+            if(rarity.equals("COMMON")) {
+                optimizedMana = 40;
+            }
+            if(rarity.equals("UNCOMMON")) {
+                optimizedMana = 50;
+            }
+            if(rarity.equals("RARE")) {
+                optimizedMana = 65;
+            }
+            if(rarity.equals("EPIC")) {
+                optimizedMana = 80;
+            }
+            if(rarity.equals("LEGENDARY")) {
+                optimizedMana = 100;
+            }
+            if(rarity.equals("MYTHIC")) {
+                optimizedMana = 125;
+            }
+            return new OptimizerResultText("Your weapon is not reforged on Heroic!", false, String.valueOf(optimizedMana));
+        }
+        return new OptimizerResultTextSuccess();
+    }
+
+    public static OptimizerResultText checkNecrotic() {
+        ItemStack[] armor = Minecraft.getMinecraft().thePlayer.inventory.armorInventory;
+
+        List<ItemStack> noNecrotic = new ArrayList();
+        int optimizedMana = 0;
+        for (int i = 0; i < armor.length; i++) {
+            if(armor[i] != null) {
+                if(!Utils.clearColour(armor[i].getDisplayName()).startsWith("Necrotic")) {
+                    String rarity = getRarity(armor[i]);
+                    if(rarity.equals("COMMON")) {
+                        optimizedMana = 30;
+                    }
+                    if(rarity.equals("UNCOMMON")) {
+                        optimizedMana = 60;
+                    }
+                    if(rarity.equals("RARE")) {
+                        optimizedMana = 90;
+                    }
+                    if(rarity.equals("EPIC")) {
+                        optimizedMana = 120;
+                    }
+                    if(rarity.equals("LEGENDARY")) {
+                        optimizedMana = 150;
+                    }
+                    if(rarity.equals("MYTHIC")) {
+                        optimizedMana = 200;
+                    }
+                    noNecrotic.add(armor[i]);
+                }
+            }
+        }
+
+        if(noNecrotic.size() == 0) {
+            return new OptimizerResultTextSuccess();
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < noNecrotic.size(); i++) {
+            stringBuilder.append(Utils.clearColour(noNecrotic.get(i).getDisplayName())).append(", ");
+        }
+        String result = stringBuilder.toString().substring(0, stringBuilder.toString().length()-2) + " don't have the Necrotic reforge!";
+        return new OptimizerResultText(result, false, String.valueOf(optimizedMana));
+    }
+
     public static int getEnchantLevel(ItemStack item, String enchant) {
         int result = 0;
         List<String> tooltip = item.getTooltip(Minecraft.getMinecraft().thePlayer, false);
@@ -191,5 +274,30 @@ public class ManaOptimizer {
             }
         }
         return result;
+    }
+    public static String getRarity(ItemStack itemStack) {
+        NBTTagCompound tagCompound = itemStack.getTagCompound();
+        if(tagCompound.toString().contains("COMMON")) {
+            return "COMMON";
+        }
+        if(tagCompound.toString().contains("UNCOMMON")) {
+            return "UNCOMMON";
+        }
+        if(tagCompound.toString().contains("RARE")) {
+            return "RARE";
+        }
+        if(tagCompound.toString().contains("EPIC")) {
+            return "EPIC";
+        }
+        if(tagCompound.toString().contains("LEGENDARY")) {
+            return "LEGENDARY";
+        }
+        if(tagCompound.toString().contains("MYTHIC")) {
+            return "MYTHIC";
+        }
+        if(tagCompound.toString().contains("SPECIAL")) {
+            return "MYTHIC";
+        }
+        return "";
     }
 }

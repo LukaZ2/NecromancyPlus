@@ -1,9 +1,11 @@
 package de.lukaz.necromancyplus;
 
+import com.google.gson.JsonObject;
 import de.lukaz.necromancyplus.commands.*;
 import de.lukaz.necromancyplus.features.ManaCostViewer;
 import de.lukaz.necromancyplus.features.DroppedSoulInfo;
 import de.lukaz.necromancyplus.features.RemoveConfirm;
+import de.lukaz.necromancyplus.handlers.APIHandler;
 import de.lukaz.necromancyplus.handlers.SettingsHandler;
 import de.lukaz.necromancyplus.handlers.ChatHandler;
 import de.lukaz.necromancyplus.utils.MessageType;
@@ -13,6 +15,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -20,6 +23,11 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion;
+
+import javax.rmi.CORBA.Util;
+import java.io.IOException;
+import java.net.URL;
 
 @Mod(modid = NecromancyPlus.MODID, version = NecromancyPlus.VERSION, clientSideOnly = true)
 public class NecromancyPlus
@@ -30,10 +38,13 @@ public class NecromancyPlus
 
     public static GuiScreen guiScreenToOpen;
 
+    public static boolean updateChecked;
+
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         SettingsHandler.init();
         Utils.refreshApi();
+        updateChecked = false;
     }
     
     @EventHandler
@@ -71,5 +82,42 @@ public class NecromancyPlus
             Utils.refreshApi();
             ChatHandler.sendMessage("API key has been set.", MessageType.INFO);
         }
+    }
+
+    @SubscribeEvent
+    public void onJoin(EntityJoinWorldEvent event) {
+        if(updateChecked) {
+            return;
+        }
+        updateChecked = true;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                JsonObject response = null;
+                try {
+                    response = APIHandler.get(new URL("https://api.github.com/repos/LukaZ2/NecromancyPlus/releases/latest"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if(response == null) {
+                    ChatHandler.sendMessage("Failed to check updates!", MessageType.ERROR);
+                    return;
+                }
+                if(response.get("tag_name").getAsString().equals(VERSION)) {
+                    return;
+                }
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                ChatHandler.sendMessage(" ", MessageType.ERROR);
+                ChatHandler.sendMessage("The NecromancyPlus mod is outdated!", MessageType.ERROR);
+                ChatHandler.sendMessage("Please update it for new features and bugfixes!", MessageType.ERROR);
+                ChatHandler.sendMessage(response.get("html_url").getAsString(), MessageType.ERROR);
+                ChatHandler.sendMessage(" ", MessageType.ERROR);
+            }
+        }).start();
+
     }
 }

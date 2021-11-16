@@ -6,7 +6,7 @@ A simple mod that helps you with necromancy in Hypixel Skyblock.
 - Dropped souls have nametags
 - Confirmation button when removing your soul from necromancy weapons
 - Intelligence optimizer module
-
+- Settings menu (/npmenu)
 
 ⚠️Known Issues⚠️
 

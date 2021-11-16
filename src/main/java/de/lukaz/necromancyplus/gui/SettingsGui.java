@@ -19,7 +19,7 @@ public class SettingsGui extends GuiScreen {
         buttonList.add(new SettingsButton(0, (width/2)-100, (int) (height * 0.2), "Dropped Soul Info", "modules", "souldropdisplay", Module.DISPLAY_DROPPED_SOULS));
         buttonList.add(new SettingsButton(0, (width/2)-100, (int) (height * 0.3), "Display Mana cost in Menu", "modules", "displaymanacost", Module.VIEW_MANA_COST_IN_MENU));
         buttonList.add(new SettingsButton(0, (width/2)-100, (int)(height*0.4), "Doubleclick to remove soul", "modules", "confirmremove", Module.CONFIRM_REMOVE));
-        buttonList.add(new SettingsButton(0, (width/2)-100, (int)(height*0.5), "Display additional soul info", "modules", "additionalsoulinfo", Module.ADDITIONAL_SOUL_INFO));
+        buttonList.add(new SettingsButton(0, (width/2)-100, (int)(height*0.5), "Mobedex implementation", "modules", "mobedex", Module.MOBEDEX_IMPLEMENTATION));
         buttonList.add(new CustomButton(0, (width/2)-100, (int)(height*0.6), "Mana optimizer"));
     }
 

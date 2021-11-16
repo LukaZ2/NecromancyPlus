@@ -2,6 +2,7 @@ package de.lukaz.necromancyplus;
 
 import com.google.gson.JsonObject;
 import de.lukaz.necromancyplus.commands.*;
+import de.lukaz.necromancyplus.events.ToolTipEvent;
 import de.lukaz.necromancyplus.features.ManaCostViewer;
 import de.lukaz.necromancyplus.features.DroppedSoulInfo;
 import de.lukaz.necromancyplus.features.RemoveConfirm;
@@ -49,9 +50,9 @@ public class NecromancyPlus
     public void init(FMLInitializationEvent event) {
 
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new ManaCostViewer());
         MinecraftForge.EVENT_BUS.register(new DroppedSoulInfo());
         MinecraftForge.EVENT_BUS.register(new RemoveConfirm());
+        MinecraftForge.EVENT_BUS.register(new ToolTipEvent());
     }
 
     @EventHandler

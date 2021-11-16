@@ -1,33 +1,32 @@
 package de.lukaz.necromancyplus.features;
 
 import de.lukaz.necromancyplus.enums.Module;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.List;
+
 public class ManaCostViewer {
 
-    @SubscribeEvent
-    public void itemTooltipEvent(ItemTooltipEvent event) {
+    public static void onTooltip(List<String> toolTip) {
 
         if(Module.VIEW_MANA_COST_IN_MENU.getState() == 0) {
             return;
         }
 
-        if(event.toolTip == null) {
+        if(toolTip == null) {
             return;
         }
-        if(event.entityPlayer.inventory.getDisplayName() == null || event.entityPlayer.inventory.getDisplayName().toString().isEmpty()) {
+        if(toolTip.size() < 4) {
             return;
         }
-        if(event.toolTip.size() < 4) {
+        if(!toolTip.get(5).contains("Click to remove!")) {
             return;
         }
-        if(!event.toolTip.get(event.toolTip.size()-3).contains("Click to remove!")) {
-            return;
-        }
-        String[] healthRaw = event.toolTip.get(1).split(":");
-        String[] damageRaw = event.toolTip.get(2).split(":");
+        String[] healthRaw = toolTip.get(1).split(":");
+        String[] damageRaw = toolTip.get(2).split(":");
 
         int health = Integer.parseInt(healthRaw[1].replace(",", "").substring(3));
         int damage = Integer.parseInt(damageRaw[1].replace(",", "").substring(3));
@@ -38,10 +37,8 @@ public class ManaCostViewer {
         mana_maxReduction = (int) (mana_maxReduction*0.8); //Level 100 Sheep pet
         mana_maxReduction = (int) (mana_maxReduction*0.67); //Wise armor swap
 
-        event.toolTip.add(EnumChatFormatting.GRAY + "This soul costs " + EnumChatFormatting.DARK_AQUA + mana_Cost + " Mana " + EnumChatFormatting.GRAY + "to spawn.");
-        event.toolTip.add(EnumChatFormatting.GRAY + "You can reduce the mana cost to " + EnumChatFormatting.AQUA + mana_maxReduction + " Mana" + EnumChatFormatting.GRAY + ".");
-
-        AdditionalSoulInfo.onTooltip(event.toolTip, event.itemStack);
+        toolTip.add(EnumChatFormatting.GRAY + "This soul costs " + EnumChatFormatting.DARK_AQUA + mana_Cost + " Mana " + EnumChatFormatting.GRAY + "to spawn.");
+        toolTip.add(EnumChatFormatting.GRAY + "You can reduce the mana cost to " + EnumChatFormatting.AQUA + mana_maxReduction + " Mana" + EnumChatFormatting.GRAY + ".");
 
     }
 }

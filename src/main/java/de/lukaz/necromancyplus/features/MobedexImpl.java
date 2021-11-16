@@ -12,22 +12,31 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.List;
 
-public class AdditionalSoulInfo {
+public class MobedexImpl {
 
     public static void onTooltip(List<String> toolTip, ItemStack itemStack) {
-        if(Module.ADDITIONAL_SOUL_INFO.getState() == 0) {
+        if(Module.MOBEDEX_IMPLEMENTATION.getState() == 0) {
+            return;
+        }
+        if(toolTip.size() < 4) {
+            return;
+        }
+        if(!toolTip.get(5).contains("Click to remove!")) {
             return;
         }
         toolTip.add(" ");
-        toolTip.add(EnumChatFormatting.GREEN + "[Additional Info]");
+        toolTip.add(EnumChatFormatting.GREEN + "[Mobedex]");
+        toolTip.add(EnumChatFormatting.GREEN + "Made by _StarrySkies. (Last updated: November 16th, 2021)");
         for (int i = 0; i < SoulType.values().length; i++) {
             if(!Utils.clearColour(itemStack.getDisplayName()).equalsIgnoreCase(SoulType.values()[i].soulName)) {
                 continue;
             }
             toolTip.add(EnumChatFormatting.GREEN + "Speed: " + SoulType.values()[i].speed);
+            toolTip.add(EnumChatFormatting.GREEN + "Description: ");
             if(SoulType.values()[i].description != null) {
-                toolTip.add(EnumChatFormatting.GREEN + "Description: ");
                 toolTip.add(EnumChatFormatting.GREEN + SoulType.values()[i].description);
+            } else {
+                toolTip.add(EnumChatFormatting.GREEN + "No description.");
             }
             toolTip.add(" ");
             return;

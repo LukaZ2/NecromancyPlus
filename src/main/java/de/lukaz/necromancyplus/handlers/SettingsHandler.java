@@ -103,6 +103,6 @@ public class SettingsHandler {
         Module.DISPLAY_DROPPED_SOULS.setState(initValue("modules", "souldropdisplay", 0));
         Module.VIEW_MANA_COST_IN_MENU.setState(initValue("modules", "displaymanacost", 1));
         Module.CONFIRM_REMOVE.setState(initValue("modules", "confirmremove", 1));
-        Module.ADDITIONAL_SOUL_INFO.setState(initValue("modules", "additionalsoulinfo", 1));
+        Module.MOBEDEX_IMPLEMENTATION.setState(initValue("modules", "mobedex", 1));
     }
 }

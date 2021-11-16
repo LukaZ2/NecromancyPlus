@@ -1,8 +1,8 @@
 package de.lukaz.necromancyplus.features;
 
 import de.lukaz.necromancyplus.handlers.ChatHandler;
-import de.lukaz.necromancyplus.utils.MessageType;
-import de.lukaz.necromancyplus.utils.Module;
+import de.lukaz.necromancyplus.enums.MessageType;
+import de.lukaz.necromancyplus.enums.Module;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiChest;
 import net.minecraft.inventory.Container;

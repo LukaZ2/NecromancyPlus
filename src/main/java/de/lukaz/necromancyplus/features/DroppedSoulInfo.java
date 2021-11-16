@@ -1,6 +1,6 @@
 package de.lukaz.necromancyplus.features;
 
-import de.lukaz.necromancyplus.utils.Module;
+import de.lukaz.necromancyplus.enums.Module;
 import de.lukaz.necromancyplus.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;

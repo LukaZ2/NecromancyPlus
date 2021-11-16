@@ -1,7 +1,7 @@
 package de.lukaz.necromancyplus.gui;
 
 import de.lukaz.necromancyplus.handlers.SettingsHandler;
-import de.lukaz.necromancyplus.utils.Module;
+import de.lukaz.necromancyplus.enums.Module;
 import de.lukaz.necromancyplus.utils.gui.CustomButton;
 import net.minecraft.util.EnumChatFormatting;
 

@@ -1,4 +1,4 @@
-package de.lukaz.necromancyplus.utils;
+package de.lukaz.necromancyplus.enums;
 
 import net.minecraft.util.EnumChatFormatting;
 

@@ -2,9 +2,8 @@ package de.lukaz.necromancyplus.gui;
 
 import de.lukaz.necromancyplus.NecromancyPlus;
 import de.lukaz.necromancyplus.handlers.ChatHandler;
-import de.lukaz.necromancyplus.handlers.SettingsHandler;
-import de.lukaz.necromancyplus.utils.MessageType;
-import de.lukaz.necromancyplus.utils.Module;
+import de.lukaz.necromancyplus.enums.MessageType;
+import de.lukaz.necromancyplus.enums.Module;
 import de.lukaz.necromancyplus.utils.Utils;
 import de.lukaz.necromancyplus.utils.gui.CustomButton;
 import net.minecraft.client.Minecraft;
@@ -20,7 +19,8 @@ public class SettingsGui extends GuiScreen {
         buttonList.add(new SettingsButton(0, (width/2)-100, (int) (height * 0.2), "Dropped Soul Info", "modules", "souldropdisplay", Module.DISPLAY_DROPPED_SOULS));
         buttonList.add(new SettingsButton(0, (width/2)-100, (int) (height * 0.3), "Display Mana cost in Menu", "modules", "displaymanacost", Module.VIEW_MANA_COST_IN_MENU));
         buttonList.add(new SettingsButton(0, (width/2)-100, (int)(height*0.4), "Doubleclick to remove soul", "modules", "confirmremove", Module.CONFIRM_REMOVE));
-        buttonList.add(new CustomButton(0, (width/2)-100, (int)(height*0.5), "Mana optimizer"));
+        buttonList.add(new SettingsButton(0, (width/2)-100, (int)(height*0.5), "Display additional soul info", "modules", "additionalsoulinfo", Module.ADDITIONAL_SOUL_INFO));
+        buttonList.add(new CustomButton(0, (width/2)-100, (int)(height*0.6), "Mana optimizer"));
     }
 
     @Override

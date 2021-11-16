@@ -1,6 +1,6 @@
 package de.lukaz.necromancyplus.features;
 
-import de.lukaz.necromancyplus.utils.Module;
+import de.lukaz.necromancyplus.enums.Module;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -40,6 +40,8 @@ public class ManaCostViewer {
 
         event.toolTip.add(EnumChatFormatting.GRAY + "This soul costs " + EnumChatFormatting.DARK_AQUA + mana_Cost + " Mana " + EnumChatFormatting.GRAY + "to spawn.");
         event.toolTip.add(EnumChatFormatting.GRAY + "You can reduce the mana cost to " + EnumChatFormatting.AQUA + mana_maxReduction + " Mana" + EnumChatFormatting.GRAY + ".");
+
+        AdditionalSoulInfo.onTooltip(event.toolTip, event.itemStack);
 
     }
 }

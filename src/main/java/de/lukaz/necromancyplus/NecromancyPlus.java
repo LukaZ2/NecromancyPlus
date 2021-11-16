@@ -8,7 +8,7 @@ import de.lukaz.necromancyplus.features.RemoveConfirm;
 import de.lukaz.necromancyplus.handlers.APIHandler;
 import de.lukaz.necromancyplus.handlers.SettingsHandler;
 import de.lukaz.necromancyplus.handlers.ChatHandler;
-import de.lukaz.necromancyplus.utils.MessageType;
+import de.lukaz.necromancyplus.enums.MessageType;
 import de.lukaz.necromancyplus.utils.Utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -23,9 +23,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion;
 
-import javax.rmi.CORBA.Util;
 import java.io.IOException;
 import java.net.URL;
 
@@ -54,7 +52,6 @@ public class NecromancyPlus
         MinecraftForge.EVENT_BUS.register(new ManaCostViewer());
         MinecraftForge.EVENT_BUS.register(new DroppedSoulInfo());
         MinecraftForge.EVENT_BUS.register(new RemoveConfirm());
-
     }
 
     @EventHandler

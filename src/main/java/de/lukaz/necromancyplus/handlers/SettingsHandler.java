@@ -1,8 +1,7 @@
 package de.lukaz.necromancyplus.handlers;
 
-import de.lukaz.necromancyplus.utils.Module;
+import de.lukaz.necromancyplus.enums.Module;
 import net.minecraftforge.common.config.Configuration;
-import scala.DeprecatedConsole;
 
 import java.io.File;
 
@@ -104,5 +103,6 @@ public class SettingsHandler {
         Module.DISPLAY_DROPPED_SOULS.setState(initValue("modules", "souldropdisplay", 0));
         Module.VIEW_MANA_COST_IN_MENU.setState(initValue("modules", "displaymanacost", 1));
         Module.CONFIRM_REMOVE.setState(initValue("modules", "confirmremove", 1));
+        Module.ADDITIONAL_SOUL_INFO.setState(initValue("modules", "additionalsoulinfo", 1));
     }
 }

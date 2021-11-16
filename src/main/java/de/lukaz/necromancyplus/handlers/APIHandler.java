@@ -3,7 +3,7 @@ package de.lukaz.necromancyplus.handlers;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import de.lukaz.necromancyplus.utils.MessageType;
+import de.lukaz.necromancyplus.enums.MessageType;
 import net.minecraft.client.Minecraft;
 
 import java.io.BufferedReader;
